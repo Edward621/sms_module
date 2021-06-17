@@ -4,20 +4,19 @@
 
 - [Install](#install)
 - [Introduction](#introduction)
-- [Description](#description)
   - [Mysql](#mysql)
   - [Redis](#redis)
   - [Api](#api)
   - [Queue](#queue)
   - [Microapp](#microapp)
-
+- [Description](#description)
 - [How to POST Message](#post-message)
 
 
 ## Install
 
 This is a [Docker](https://www.docker.com/) base application.
-You need to have [docker](https://docs.docker.com/get-docker/) installed in you machine.
+You need to have [docker](https://docs.docker.com/get-docker/) as well as [docker-compose](https://docs.docker.com/compose/install/) installed in you machine.
 
 Here is how you can clone & run the project:
 
