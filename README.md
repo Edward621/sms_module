@@ -11,8 +11,7 @@
   - [Queue](#queue)
   - [Microapp](#microapp)
 
-- [Post Message](#post-message)
-
+- [How to POST Message](#post-message)
 
 
 ## Install
@@ -40,13 +39,13 @@ cd <project-directory>
 sudo docker-compose up
 ```
 
-* if you want to run in the background you can use -d option:
+* if you want to run the system at the background you can use -d option:
 
 ```
 sudo docker-compose up -d
 ```
 
-to stop you can simply run:
+* to stop runnign the system at the background, simply run:
 
 ```
 sudo docker-compose down
@@ -57,19 +56,19 @@ sudo docker-compose down
 Few Images work together to create this Simple SMS module.
 
 ### [Mysql](https://hub.docker.com/_/mysql)
-  * Save messages in mysql database.
+  * SQL database used to save messages.
 
 ### [Redis](https://hub.docker.com/_/redis)
-  * Cache incoming messages in queueProcessing then to ready table.
+  * In-memory data structure store to Cache incoming messages.
 
 ### Api
-  * Receive messages via Http POST request, and save it to cache (queueProcessing table).
+  * Receive messages via Http POST request, and save it to queueProcessing table.
 
 ### Queue
-  * Check queueProcessing table every 5min, and if there is any, save it to ready table in cache.
+  * Check queueProcessing table every 5min, and if there is any message in it, get and save it to ready table in cache.
 
 ### Microapp
-  * Check ready table every 5min, and if there is any, save it to messages table in mysql database.
+  * Check ready table every 5min, and if there is any message in it, get and save it to messages table in mysql database.
 
 
 ## Description
@@ -79,9 +78,9 @@ Check ready table in redis cache every 5min to see if there is any message, if y
 
 ## Post Message
 
-You can use your desired platform to send message to the api application:
+You can use your desired platform to send message to the api application.
+e.g. Using terminal:
 
 ```
 curl -X POST -H "Content-Type: application/json" -d '{"phoneNumber": "6014938293", "msg": "happy go lucky"}' 127.0.0.1:3000/queue
 ```
-
