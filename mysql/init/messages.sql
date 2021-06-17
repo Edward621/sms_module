@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS message_service;
+
+USE message_service;
+
+CREATE TABLE messages (
+  id MEDIUMINT NOT NULL AUTO_INCREMENT,
+  phoneNumber VARCHAR(25) NOT NULL,
+  msg VARCHAR (255) NOT NULL,
+  PRIMARY KEY (id)
+);
+

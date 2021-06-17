@@ -1,0 +1,51 @@
+version: '3'
+services:
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis:/data
+    restart: always
+
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: message_service
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ./mysql/data:/var/lib/mysql
+
+  api:
+    build: ./api
+    container_name: api
+    image: api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+
+  queue:
+    build: ./queue
+    container_name: queue
+    image: queue
+    depends_on:
+      - redis
+
+  microapp:
+    build: ./microapp
+    container_name: microapp
+    image: microapp
+    depends_on:
+      - mysql
+      - redis
